@@ -66,8 +66,16 @@ import io
 #     print(e)
 ##############next part of the code is opening the tsv to play with it
 
+<<<<<<< HEAD
+    # gets tagged words
+    tags = parsed["description"]["tags"]
+    for x,y in tags.items():
+        tags[x] = str(y)
+    print tags
+=======
 # dtype = str,
 df = pd.read_csv('C:\Users\Admin\/afoodproject\database.csv', dtype = str )
+>>>>>>> dad6994b4f2fc5cf4d68b9b582515060ea32e8db
 
 # print(df.loc[10][7])
 # print("in the column" + df[df['7'].str.contains("apple") == True])
