@@ -3,6 +3,10 @@
 ########### Python 2.7 #############
 import httplib, urllib, base64, json
 
+# Seasy
+import urllib2 #HTTP requests
+import re #regex
+
 ###############################################
 #### Update or verify the following values. ###
 ###############################################
@@ -34,6 +38,7 @@ params = urllib.urlencode({
 
 # The URL of a JPEG image to analyze.
 body = "{'url':'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Muffin_NIH.jpg/220px-Muffin_NIH.jpg'}"
+
 try:
     # Execute the REST API call and get the response.
     conn = httplib.HTTPSConnection('westcentralus.api.cognitive.microsoft.com')
