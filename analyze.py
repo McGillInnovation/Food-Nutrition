@@ -6,6 +6,9 @@ import httplib, urllib, base64, json
 # Seasy
 import urllib2 #HTTP requests
 import re #regex
+from PIL import Image #gives raw binary data of a photo
+import io
+
 
 ###############################################
 #### Update or verify the following values. ###
@@ -39,17 +42,30 @@ params = urllib.urlencode({
 # The URL of a JPEG image to analyze.
 body = "{'url':'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Muffin_NIH.jpg/220px-Muffin_NIH.jpg'}"
 
+
+# img = Image.open("/Users/awesomerice/Pictures/IMG_3014.JPG")
+# output = io.BytesIO()
+# img.save(output, format='JPEG')
+# hex_data = output.getvalue()
+# body = hex_data
+
 try:
     # Execute the REST API call and get the response.
     conn = httplib.HTTPSConnection('westcentralus.api.cognitive.microsoft.com')
     conn.request("POST", "/vision/v1.0/analyze?%s" % params, body, headers)
     response = conn.getresponse()
     data = response.read()
-
     # 'data' contains the JSON data. The following formats the JSON data for display.
+
     parsed = json.loads(data)
-    print ("Response:")
-    print (json.dumps(parsed, sort_keys=True, indent=2))
+    # print ("Response:")
+    # print (json.dumps(parsed, sort_keys=True, indent=2))
+
+    # gets tagged words
+    tags = parsed["description"]["tags"]
+    print tags
+
+
     conn.close()
 
 except Exception as e:
