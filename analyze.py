@@ -69,14 +69,27 @@ import io
 # dtype = str,
 df = pd.read_csv('C:\Users\Admin\/afoodproject\database.csv', dtype = str )
 
+# print(df.loc[10][7])
+# print("in the column" + df[df['7'].str.contains("apple") == True])
+s = "Organic"
+# if "Acai" in df.loc[77][7]:
+#     print "here!!"
+# print(df.loc[77][7])
+# #
 
-# print("here is your value "+df.at[0, 'A'])
-# low_memory=False
-# error_bad_lines=False
-# Using `iloc[]`
-print(df.loc[10][7])
-print("in the column" + df[df['7'].str.contains("apple") == True])
+# POSSIBLE AND WORKING
+for x in range(0,500):
+    if s in df.loc[x][7]:
+        print(df.loc[x][7])
+    # x=x+1
+# #
 
+
+            # print "We're on time %d" % (x)
+
+# for row in df.rows:
+    # if (row[7] == "apple"):
+        # print row[7]
 # print(df[df[7].str.contains("apple")])
 # # Using `loc[]`
 # print(df.loc[0]['A'])
