@@ -2,6 +2,9 @@
 
 ########### Python 2.7 #############
 import httplib, urllib, base64, json
+from pandas import DataFrame
+import pandas as pd
+from StringIO import StringIO
 
 # Seasy
 import urllib2 #HTTP requests
@@ -13,64 +16,83 @@ import io
 ###############################################
 #### Update or verify the following values. ###
 ###############################################
-
-# Replace the subscription_key string value with your valid subscription key.
-subscription_key = 'af3d9522bfd948238041619e61a8f27c'
-
-# Replace or verify the region.
 #
-# You must use the same region in your REST API call as you used to obtain your subscription keys.
-# For example, if you obtained your subscription keys from the westus region, replace
-# "westcentralus" in the URI below with "westus".
+# # Replace the subscription_key string value with your valid subscription key.
+# subscription_key = 'af3d9522bfd948238041619e61a8f27c'
 #
-# NOTE: Free trial subscription keys are generated in the westcentralus region, so if you are using
-# a free trial subscription key, you should not need to change this region.
-uri_base = 'westcentralus.api.cognitive.microsoft.com'
+# # Replace or verify the region.
+# #
+# # You must use the same region in your REST API call as you used to obtain your subscription keys.
+# # For example, if you obtained your subscription keys from the westus region, replace
+# # "westcentralus" in the URI below with "westus".
+# #
+# # NOTE: Free trial subscription keys are generated in the westcentralus region, so if you are using
+# # a free trial subscription key, you should not need to change this region.
+# uri_base = 'westcentralus.api.cognitive.microsoft.com'
+#
+# headers = {
+#     # Request headers.
+#     'Content-Type': 'application/json',
+#     'Ocp-Apim-Subscription-Key': subscription_key,
+# }
+#
+# params = urllib.urlencode({
+#     # Request parameters. All of them are optional.
+#     'visualFeatures': 'Categories,Description,Color',
+#     'language': 'en',
+# })
+#
+# # The URL of a JPEG image to analyze.
+# body = "{'url':'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Muffin_NIH.jpg/220px-Muffin_NIH.jpg'}"
+# try:
+#     # Execute the REST API call and get the response.
+#     conn = httplib.HTTPSConnection('westcentralus.api.cognitive.microsoft.com')
+#     conn.request("POST", "/vision/v1.0/analyze?%s" % params, body, headers)
+#     response = conn.getresponse()
+#     data = response.read()
+#     #
+#         parsed = json.loads(data)
+#         # print ("Response:")
+#         # print (json.dumps(parsed, sort_keys=True, indent=2))
+#
+#         # gets tagged words
+#         tags = parsed["description"]["tags"]
+#         print tags
+#
+# #     conn.close()
+#
+# except Exception as e:
+#     print('Error:')
+#     print(e)
+##############next part of the code is opening the tsv to play with it
 
-headers = {
-    # Request headers.
-    'Content-Type': 'application/json',
-    'Ocp-Apim-Subscription-Key': subscription_key,
-}
-
-params = urllib.urlencode({
-    # Request parameters. All of them are optional.
-    'visualFeatures': 'Categories,Description,Color',
-    'language': 'en',
-})
-
-# The URL of a JPEG image to analyze.
-body = "{'url':'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Muffin_NIH.jpg/220px-Muffin_NIH.jpg'}"
-
-
-# img = Image.open("/Users/awesomerice/Pictures/IMG_3014.JPG")
-# output = io.BytesIO()
-# img.save(output, format='JPEG')
-# hex_data = output.getvalue()
-# body = hex_data
-
-try:
-    # Execute the REST API call and get the response.
-    conn = httplib.HTTPSConnection('westcentralus.api.cognitive.microsoft.com')
-    conn.request("POST", "/vision/v1.0/analyze?%s" % params, body, headers)
-    response = conn.getresponse()
-    data = response.read()
-    # 'data' contains the JSON data. The following formats the JSON data for display.
-
-    parsed = json.loads(data)
-    # print ("Response:")
-    # print (json.dumps(parsed, sort_keys=True, indent=2))
-
+<<<<<<< HEAD
     # gets tagged words
     tags = parsed["description"]["tags"]
     for x,y in tags.items():
         tags[x] = str(y)
     print tags
+=======
+# dtype = str,
+df = pd.read_csv('C:\Users\Admin\/afoodproject\database.csv', dtype = str )
+>>>>>>> dad6994b4f2fc5cf4d68b9b582515060ea32e8db
 
 
-    conn.close()
+# print("here is your value "+df.at[0, 'A'])
+# low_memory=False
+# error_bad_lines=False
+# Using `iloc[]`
+print(df.loc[10][7])
+print("in the column" + df[df['7'].str.contains("apple") == True])
 
-except Exception as e:
-    print('Error:')
-    print(e)
-##############
+# print(df[df[7].str.contains("apple")])
+# # Using `loc[]`
+# print(df.loc[0]['A'])
+#
+# # Using `at[]`
+# print(df.at[0,'A'])
+#
+# # Using `iat[]`
+# # print(df.iat[0,0])
+#
+# # Using `get_value(index, column)`
