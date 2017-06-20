@@ -63,6 +63,8 @@ try:
 
     # gets tagged words
     tags = parsed["description"]["tags"]
+    for x,y in tags.items():
+        tags[x] = str(y)
     print tags
 
 
