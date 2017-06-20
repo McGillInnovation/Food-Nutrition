@@ -6,6 +6,13 @@ from pandas import DataFrame
 import pandas as pd
 from StringIO import StringIO
 
+# Seasy
+import urllib2 #HTTP requests
+import re #regex
+from PIL import Image #gives raw binary data of a photo
+import io
+
+
 ###############################################
 #### Update or verify the following values. ###
 ###############################################
@@ -43,12 +50,16 @@ from StringIO import StringIO
 #     conn.request("POST", "/vision/v1.0/analyze?%s" % params, body, headers)
 #     response = conn.getresponse()
 #     data = response.read()
+#     #
+#         parsed = json.loads(data)
+#         # print ("Response:")
+#         # print (json.dumps(parsed, sort_keys=True, indent=2))
 #
-#     # 'data' contains the JSON data. The following formats the JSON data for display.
-#     parsed = json.loads(data)
-#     print ("Response:")
-#     print (json.dumps(parsed, sort_keys=True, indent=2))
-#     conn.close()
+#         # gets tagged words
+#         tags = parsed["description"]["tags"]
+#         print tags
+#
+# #     conn.close()
 #
 # except Exception as e:
 #     print('Error:')
@@ -77,4 +88,3 @@ print("in the column" + df[df['7'].str.contains("apple") == True])
 # # print(df.iat[0,0])
 #
 # # Using `get_value(index, column)`
-# print(df.get_value(0, 'A'))
