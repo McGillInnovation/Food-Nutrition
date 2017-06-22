@@ -53,10 +53,12 @@ def createAPIConnection(picURL, SUBSCRIPTION_KEY):
         response = connection.getresponse()
         data = response.read()
 
+        # Deal with response
         json_data = json.loads(data)
         print ("Response:")
         print (json.dumps(json_data, sort_keys=True, indent=2))
 
+        # Call the method lol
         getTags(json_data)
 
         connection.close()
