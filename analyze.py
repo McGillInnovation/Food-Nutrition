@@ -20,6 +20,9 @@ import io
 # Replace the subscription_key string value with your valid subscription key.
 subscription_key = 'af3d9522bfd948238041619e61a8f27c'
 
+# The URL of a JPEG image to analyze.
+example_pic_URL = "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Muffin_NIH.jpg/220px-Muffin_NIH.jpg"
+
 # Replace or verify the region.
 #
 # You must use the same region in your REST API call as you used to obtain your subscription keys.
@@ -30,71 +33,90 @@ subscription_key = 'af3d9522bfd948238041619e61a8f27c'
 # a free trial subscription key, you should not need to change this region.
 uri_base = 'westcentralus.api.cognitive.microsoft.com'
 
-headers = {
-    # Request headers.
-    'Content-Type': 'application/json',
-    'Ocp-Apim-Subscription-Key': subscription_key,
-}
+def createAPIConnection(picURL):
+    print "aaaaaaa"
 
-params = urllib.urlencode({
-    # Request parameters. All of them are optional.
-    'visualFeatures': 'Tags,Description',
-    'language': 'en',
-})
+    headers = {
+        # Request headers.
+        'Content-Type': 'application/json',
+        'Ocp-Apim-Subscription-Key': subscription_key,
+    }
 
-# The URL of a JPEG image to analyze.
-picURL = "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Muffin_NIH.jpg/220px-Muffin_NIH.jpg"
-body = "{'url':'%s'}" % (picURL)
-try:
-    # Execute the REST API call and get the response.
-    conn = httplib.HTTPSConnection('westcentralus.api.cognitive.microsoft.com')
-    conn.request("POST", "/vision/v1.0/analyze?%s" % params, body, headers)
-    response = conn.getresponse()
-    data = response.read()
+    params = urllib.urlencode({
+        # Request parameters. All of them are optional.
+        'visualFeatures': 'Tags,Description',
+        'language': 'en',
+    })
+
+    # The URL of a JPEG image to analyze.
+    body = "{'url':'%s'}" % (picURL)
+
+    try:
+        # Execute the REST API call and get the response.
+        connection = httplib.HTTPSConnection('westcentralus.api.cognitive.microsoft.com')
+        connection.request("POST", "/vision/v1.0/analyze?%s" % params, body, headers)
+        response = connection.getresponse()
+        data = response.read()
+
+        json_data = json.loads(data)
+        print ("Response:")
+        print (json.dumps(json_data, sort_keys=True, indent=2))
+
+        getTags(json_data)
+
+        connection.close()
+
+    except Exception as e:
+        print('Error:')
+        print(e)
+
+# ------------------------------------------------- [S] get tags ---------------------------------------------
+
+def getTags(json_data):
+    tags = json_data["description"]["tags"]
+    for x,y in tags.items():
+        tags[x] = str(y)
+    print tags
+
+# ------------------------------------------------- [A] csv stuff  ---------------------------------------------
+
+##############  next part of the code is opening the tsv to play with it
+
+def findByKeyword():
+    df = pd.read_csv('C:\Users\Admin\/afoodproject\database_revised.csv', dtype = object )
+
+    # print(df.loc[10][7])
+    # print("in the column" + df[df['7'].str.contains("apple") == True])
+    s = "Organic"
+    # if "Acai" in df.loc[77][7]:
+    #     print "here!!"
+    # print(df.loc[77][7])
+    # #
+    column = 3
+    L = []
+    # POSSIBLE AND WORKING
+    for x in range(0,500):
+        name=(df.iloc[x][column])
+        # name = df.get_value(x, column, takeable=False)
+        if s in name :
+            L.append(x)
+            print(name)
+        # x=x+1
+
+                # print "We're on time %d" % (x)
+
+
+    # for row in df.rows:
+        # if (row[7] == "apple"):
+            # print row[7]
+    # print(df[df[7].str.contains("apple")])
+    # # Using `loc[]`
+    # print(df.loc[0]['A'])
     #
-    parsed = json.loads(data)
-    print ("Response:")
-    print (json.dumps(parsed, sort_keys=True, indent=2))
-
-    # gets tagged words
-
-    # tags = parsed["description"]["tags"]
-    # print tags
-
-    conn.close()
-
-except Exception as e:
-    print('Error:')
-    print(e)
-##############next part of the code is opening the tsv to play with it
-#
-#
-#     # gets tagged words
-#     tags = parsed["description"]["tags"]
-#     for x,y in tags.items():
-#         tags[x] = str(y)
-#     print tags
-#
-# # dtype = str,
-# df = pd.read_csv('C:\Users\Admin\/afoodproject\database.csv', dtype = str )
-
-
-
-# print("here is your value "+df.at[0, 'A'])
-# low_memory=False
-# error_bad_lines=False
-# Using `iloc[]`
-# print(df.loc[10][7])
-# print("in the column" + df[df['7'].str.contains("apple") == True])
-
-# print(df[df[7].str.contains("apple")])
-# # Using `loc[]`
-# print(df.loc[0]['A'])
-#
-# # Using `at[]`
-# print(df.at[0,'A'])
-#
-# # Using `iat[]`
-# # print(df.iat[0,0])
-#
-# # Using `get_value(index, column)`
+    # # Using `at[]`
+    # print(df.at[0,'A'])
+    #
+    # # Using `iat[]`
+    # # print(df.iat[0,0])
+    #
+    # # Using `get_value(index, column)`
