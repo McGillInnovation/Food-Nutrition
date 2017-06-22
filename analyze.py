@@ -43,7 +43,7 @@ def createAPIConnection(picURL, SUBSCRIPTION_KEY):
         'language': 'en',
     })
 
-    # The URL of a JPEG image to analyze.
+    # The URL of a JPEG image to analyzeself.
     body = "{'url':'%s'}" % (picURL)
 
     try:
@@ -59,7 +59,12 @@ def createAPIConnection(picURL, SUBSCRIPTION_KEY):
         print (json.dumps(json_data, sort_keys=True, indent=2))
 
         # Call the method lol
-        getTags(json_data)
+        output_tag_array = getTags(json_data)
+        print output_tag_array
+
+        isFruit(output_tag_array)
+        whatFruit(output_tag_array)
+
 
         connection.close()
 
@@ -67,15 +72,41 @@ def createAPIConnection(picURL, SUBSCRIPTION_KEY):
         print('Error:')
         print(e)
 
-# ------------------------------------------------- [S] get tags ---------------------------------------------
+# ----------------------- [S] get tags ---------------------------------------------
 
 def getTags(json_data):
-    tags = json_data["tags"]
+    tag_array = json_data["tags"]
 
     # TODO change the thing later
     # for tag in tags:
 
-    print tags
+    return tag_array
+
+# ----------------------- [S] check if 'fruit' is a tag ---------------------------------------------
+
+def isFruit(tag_array):
+    fruitTag = False
+    for tag in tag_array:
+        if tag['name'] == "fruit" and tag['confidence'] > 0.5:
+            fruitTag = True
+            print "Object is fruit with %s confidence." % (tag['confidence'])
+
+    # If there is no fruit tag
+    if fruitTag == False:
+        print "Object is not a fruit."
+
+# ----------------------- [S] if fruit, what/which fruit(s)?  ---------------------------------------------
+
+def whatFruit(tag_array):
+    fruitTag = False
+    for tag in tag_array:
+        if tag['name'] == "fruit" and tag['confidence'] > 0.5:
+            fruitTag = True
+            print "Object is fruit with %s confidence." % (tag['confidence'])
+
+    # If there is no fruit tag
+    if fruitTag == False:
+        print "Object is not a fruit."
 
 # ------------------------------------------------- [A] csv stuff  ---------------------------------------------
 
