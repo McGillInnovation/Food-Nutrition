@@ -12,16 +12,12 @@ import re #regex
 from PIL import Image #gives raw binary data of a photo
 import io
 
+#import global Constants
+import global_constants
 
 ###############################################
 #### Update or verify the following values. ###
 ###############################################
-
-# Replace the subscription_key string value with your valid subscription key.
-subscription_key = 'af3d9522bfd948238041619e61a8f27c'
-
-# The URL of a JPEG image to analyze.
-example_pic_URL = "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Muffin_NIH.jpg/220px-Muffin_NIH.jpg"
 
 # Replace or verify the region.
 #
@@ -33,13 +29,12 @@ example_pic_URL = "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Muf
 # a free trial subscription key, you should not need to change this region.
 uri_base = 'westcentralus.api.cognitive.microsoft.com'
 
-def createAPIConnection(picURL):
-    print "aaaaaaa"
+def createAPIConnection(picURL, SUBSCRIPTION_KEY):
 
     headers = {
         # Request headers.
         'Content-Type': 'application/json',
-        'Ocp-Apim-Subscription-Key': subscription_key,
+        'Ocp-Apim-Subscription-Key': SUBSCRIPTION_KEY,
     }
 
     params = urllib.urlencode({
@@ -73,9 +68,11 @@ def createAPIConnection(picURL):
 # ------------------------------------------------- [S] get tags ---------------------------------------------
 
 def getTags(json_data):
-    tags = json_data["description"]["tags"]
-    for x,y in tags.items():
-        tags[x] = str(y)
+    tags = json_data["tags"]
+
+    # TODO change the thing later
+    # for tag in tags:
+
     print tags
 
 # ------------------------------------------------- [A] csv stuff  ---------------------------------------------
