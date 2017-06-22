@@ -43,7 +43,7 @@ import io
 # })
 #
 # # The URL of a JPEG image to analyze.
-# body = "{'url':'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Muffin_NIH.jpg/220px-Muffin_NIH.jpg'}"
+# body = "{'url':'http://food.fnr.sndimg.com/content/dam/images/food/fullset/2011/7/18/3/FNM_090111-Alaska_s4x3.jpg.rend.hgtvcom.966.725.jpeg'}"
 # try:
 #     # Execute the REST API call and get the response.
 #     conn = httplib.HTTPSConnection('westcentralus.api.cognitive.microsoft.com')
@@ -51,28 +51,29 @@ import io
 #     response = conn.getresponse()
 #     data = response.read()
 #     #
-#         parsed = json.loads(data)
-#         # print ("Response:")
-#         # print (json.dumps(parsed, sort_keys=True, indent=2))
+#     parsed = json.loads(data)
+#     print ("Response:")
+#     print (json.dumps(parsed, sort_keys=True, indent=2))
 #
 #         # gets tagged words
-#         tags = parsed["description"]["tags"]
-#         print tags
+#     # tags = parsed["description"]["tags"]
+#     # print tags
 #
-# #     conn.close()
+#     # conn.close()
 #
 # except Exception as e:
 #     print('Error:')
 #     print(e)
-##############next part of the code is opening the tsv to play with it
+# #
+#     # # gets tagged words
+#     # tags = parsed["description"]["tags"]
+#     # for x,y in tags.items():
+#     #     tags[x] = str(y)
+#     # print tags
+# # dtype = str,
+# ##############next part of the code is opening the tsv to play with it
 
-    # # gets tagged words
-    # tags = parsed["description"]["tags"]
-    # for x,y in tags.items():
-    #     tags[x] = str(y)
-    # print tags
-# dtype = str,
-df = pd.read_csv('C:\Users\Admin\/afoodproject\database.csv', dtype = str )
+df = pd.read_csv('C:\Users\Admin\/afoodproject\database_revised.csv', dtype = object )
 
 # print(df.loc[10][7])
 # print("in the column" + df[df['7'].str.contains("apple") == True])
@@ -81,11 +82,15 @@ s = "Organic"
 #     print "here!!"
 # print(df.loc[77][7])
 # #
-
+column = 3
+L = []
 # POSSIBLE AND WORKING
 for x in range(0,500):
-    if s in df.loc[x][7]:
-        print(df.loc[x][7])
+    name=(df.iloc[x][column])
+    # name = df.get_value(x, column, takeable=False)
+    if s in name :
+        L.append(x)
+        print(name)
     # x=x+1
 # #
 
