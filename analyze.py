@@ -113,7 +113,7 @@ def whatFruit(tag_array):
 ##############  next part of the code is opening the tsv to play with it
 
 def findByKeyword():
-    df = pd.read_csv('C:\Users\Admin\/afoodproject\database_revised.csv', dtype = object )
+    df = pd.read_csv('C:\Users\Admin\/afoodproject\/fix.csv', dtype=object)
 
     # print(df.loc[10][7])
     # print("in the column" + df[df['7'].str.contains("apple") == True])
@@ -125,28 +125,47 @@ def findByKeyword():
     column = 3
     L = []
     # POSSIBLE AND WORKING
-    for x in range(0,500):
-        name=(df.iloc[x][column])
+
+    for x in range(1, 200):
+        name = (df.iloc[x]['product_name'])
         # name = df.get_value(x, column, takeable=False)
-        if s in name :
-            L.append(x)
-            print(name)
-        # x=x+1
+        # print name
+        # print type(name)
+        # print 2*x-1
+        # print x
+        # if type(name) == float:
+        # print name
 
-                # print "We're on time %d" % (x)
+        # print x
+
+        # df.drop(df.columns[[2]], axis=1)
+        print type(name)
+        print name
+        print x
+        if name.find(s) != -1:
+            print "here"
+            #     L.append(x)
+            # /       print type(name)
+            # print name
+            # /    print x
+
+            #  x=x+1
+            # #
 
 
-    # for row in df.rows:
-        # if (row[7] == "apple"):
+            # print "We're on time %d" % (x)
+
+            # for row in df.rows:
+            # if (row[7] == "apple"):
             # print row[7]
-    # print(df[df[7].str.contains("apple")])
-    # # Using `loc[]`
-    # print(df.loc[0]['A'])
-    #
-    # # Using `at[]`
-    # print(df.at[0,'A'])
-    #
-    # # Using `iat[]`
-    # # print(df.iat[0,0])
-    #
-    # # Using `get_value(index, column)`
+            # print(df[df[7].str.contains("apple")])
+            # # Using `loc[]`
+            # print(df.loc[0]['A'])
+            #
+            # # Using `at[]`
+            # print(df.at[0,'A'])
+            #
+            # # Using `iat[]`
+            # # print(df.iat[0,0])
+            #
+            # # Using `get_value(index, column)`
