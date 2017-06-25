@@ -1,4 +1,5 @@
 #!/usr/bin/python
+from ipython_genutils import encoding
 
 import analyze
 import global_constants
@@ -7,13 +8,14 @@ def main():
 
     key_list = global_constants.init()
 
-    analyze.createAPIConnection(
+    fruit = analyze.createAPIConnection(
         key_list['example_pic_URL'],
         key_list['subscription_key']
     )
-    list3 = ["Organic", "Spelt", "Berries"]
-    print len(list3)
-
-    analyze.findByKeyword(list3)
+    # print len(list3)
+    word = fruit[0].encode('ascii', 'ignore')
+    list=[""]
+    list.append(word.title())
+    analyze.findByKeyword(list )
 
 main()

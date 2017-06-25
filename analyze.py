@@ -69,11 +69,12 @@ def createAPIConnection(picURL, SUBSCRIPTION_KEY):
         if (is_Fruit == True):
             what_Fruit = whatFruit(output_tag_array)
 
-            if (what_Fruit == True):
+            if (what_Fruit is not None):
                 fruits_array = whatFruit(output_tag_array)
                 for fruit in fruits_array:
                     print (fruit)
 
+                return fruits_array
         connection.close()
 
     except Exception as e:
@@ -142,7 +143,7 @@ def findByKeyword(wordlist):
     df = pd.read_csv('C:\Users\Admin\/afoodproject\/fix.csv', dtype=object)
     # POSSIBLE AND WORKING
 
-    for x in range(0, 200):
+    for x in range(0, 20000):
         if type(df.iloc[x]['product_name']) != float:
             name = (df.iloc[x]['product_name'])
             for i in range(len(wordlist)):
@@ -152,4 +153,3 @@ def findByKeyword(wordlist):
                     if i == len(wordlist) - 1:
                         print("it is a " + name + " at index : " + str(x))
 
-# A
