@@ -1,5 +1,7 @@
 #!/usr/bin/python
 
+from __future__ import print_function
+
 ########### Python 2.7 #############
 import httplib, urllib, base64, json
 from pandas import DataFrame
@@ -11,6 +13,7 @@ import urllib2  # HTTP requests
 import re  # regex
 from PIL import Image  # gives raw binary data of a photo
 import io
+fruits_array = []
 
 # import global Constants
 import global_constants
@@ -60,10 +63,16 @@ def createAPIConnection(picURL, SUBSCRIPTION_KEY):
 
         # Call the method lol
         output_tag_array = getTags(json_data)
-        print output_tag_array
 
-        isFruit(output_tag_array)
-        whatFruit(output_tag_array)
+        is_Fruit = isFruit(output_tag_array)
+
+        if (is_Fruit == True):
+            what_Fruit = whatFruit(output_tag_array)
+
+            if (what_Fruit == True):
+                fruits_array = whatFruit(output_tag_array)
+                for fruit in fruits_array:
+                    print (fruit)
 
         connection.close()
 
@@ -75,6 +84,7 @@ def createAPIConnection(picURL, SUBSCRIPTION_KEY):
 # ----------------------- [S] get tags ---------------------------------------------
 
 def getTags(json_data):
+
     tag_array = json_data["tags"]
 
     # TODO change the thing later
@@ -86,29 +96,42 @@ def getTags(json_data):
 # ----------------------- [S] check if 'fruit' is a tag ---------------------------------------------
 
 def isFruit(tag_array):
+
     fruitTag = False
     for tag in tag_array:
         if tag['name'] == "fruit" and tag['confidence'] > 0.5:
             fruitTag = True
-            print "Object is fruit with %s confidence." % (tag['confidence'])
+            print ("Object is fruit with %s confidence." % (tag['confidence']))
 
     # If there is no fruit tag
     if fruitTag == False:
-        print "Object is not a fruit."
+        print ("Object is not a fruit.")
+
+    return fruitTag
 
 
 # ----------------------- [S] if fruit, what/which fruit(s)?  ---------------------------------------------
 
 def whatFruit(tag_array):
-    fruitTag = False
-    for tag in tag_array:
-        if tag['name'] == "fruit" and tag['confidence'] > 0.5:
-            fruitTag = True
-            print "Object is fruit with %s confidence." % (tag['confidence'])
 
-    # If there is no fruit tag
-    if fruitTag == False:
-        print "Object is not a fruit."
+    specific_fruitTag = False
+    fruits = []
+
+    for tag in tag_array:
+        if tag['confidence'] > 0.5:
+            if tag.has_key("hint"):
+                if tag['hint'] == "food" and not tag['name'] == "fruit":
+                    specific_fruitTag = True
+                    fruits.append(tag['name'])
+                    # print (fruits)
+
+    # If there is no specific fruit tag
+    if specific_fruitTag == False:
+        print ("Cannot specify what kind of fruit. Is just fruit. :eyes:")
+
+    if specific_fruitTag == True:
+        return fruits
+
 
 
 # ------------------------------------------------- [A] csv stuff  ---------------------------------------------
@@ -127,4 +150,4 @@ def findByKeyword(wordlist):
                     break
                 else:
                     if i == len(wordlist) - 1:
-                        print "it is a " + name + " at index : " + str(x)
+                        print("it is a " + name + " at index : " + str(x))
