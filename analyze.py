@@ -51,6 +51,28 @@ def createAPIConnection(picURL, SUBSCRIPTION_KEY):
 
     try:
         # Execute the REST API call and get the response.
+        #  --------------- google cpu vision -----------------
+        # site = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=%s&destinations=%s&departure_time=%s&traffic_model=best_guess&key=%s" % (origin, destination, departure_time, API_KEY)
+
+
+# {
+#   "requests": [
+#       {
+#         "image": {
+#           "source": {
+#               "gcsImageUri": "gs://my-bucket-name/donuts.jpeg"
+#           }
+#         },
+#         "features": [
+#           {
+#             "type": "LABEL_DETECTION",
+#             "maxResults": 10
+#           }
+#         ]
+#       }
+#   ]
+# }
+
         connection = httplib.HTTPSConnection('westcentralus.api.cognitive.microsoft.com')
         connection.request("POST", "/vision/v1.0/analyze?%s" % params, body, headers)
         response = connection.getresponse()
@@ -69,7 +91,7 @@ def createAPIConnection(picURL, SUBSCRIPTION_KEY):
         if (is_Fruit == True):
             what_Fruit = whatFruit(output_tag_array)
 
-            if (what_Fruit == True):
+            if (what_Fruit is not None):
                 fruits_array = whatFruit(output_tag_array)
                 for fruit in fruits_array:
                     print (fruit)
@@ -131,64 +153,75 @@ def whatFruit(tag_array):
         return fruits
 
 
-# ------------------------------------------------- [A] csv stuff  ---------------------------------------------
+# -------------------------------------------------- [S] web calls -----------------------------------------
 
-##############  next part of the code is opening the tsv to play with it
+def send_url(site):
+    request = urllib2.Request(site)
+    response = urllib2.urlopen(request)
+    json_data  = json.loads(response.read())
 
-def findByKeyword():
-    df = pd.read_csv('C:\Users\Admin\/afoodproject\/fix.csv', dtype=object)
-
-    # print(df.loc[10][7])
-    # print("in the column" + df[df['7'].str.contains("apple") == True])
-    s = "Organic"
-    # if "Acai" in df.loc[77][7]:
-    #     print "here!!"
-    # print(df.loc[77][7])
-    # #
-    column = 3
-    L = []
-    # POSSIBLE AND WORKING
-
-    for x in range(1, 200):
-        name = (df.iloc[x]['product_name'])
-        # name = df.get_value(x, column, takeable=False)
-        # print name
-        # print type(name)
-        # print 2*x-1
-        # print x
-        # if type(name) == float:
-        # print name
-
-        # print x
-
-        # df.drop(df.columns[[2]], axis=1)
-        print type(name)
-        print name
-        print x
-        if name.find(s) != -1:
-            print "here"
-            #     L.append(x)
-            # /       print type(name)
-            # print name
-            # /    print x
-
-            #  x=x+1
-            # #
+    return json_data
 
 
-            # print "We're on time %d" % (x)
 
-            # for row in df.rows:
-            # if (row[7] == "apple"):
-            # print row[7]
-            # print(df[df[7].str.contains("apple")])
-            # # Using `loc[]`
-            # print(df.loc[0]['A'])
-            #
-            # # Using `at[]`
-            # print(df.at[0,'A'])
-            #
-            # # Using `iat[]`
-            # # print(df.iat[0,0])
-            #
-            # # Using `get_value(index, column)`
+# # ------------------------------------------------- [A] csv stuff  ---------------------------------------------
+#
+# ##############  next part of the code is opening the tsv to play with it
+#
+# def findByKeyword():
+#     df = pd.read_csv('C:\Users\Admin\/afoodproject\/fix.csv', dtype=object)
+#
+#     # print(df.loc[10][7])
+#     # print("in the column" + df[df['7'].str.contains("apple") == True])
+#     s = "Organic"
+#     # if "Acai" in df.loc[77][7]:
+#     #     print "here!!"
+#     # print(df.loc[77][7])
+#     # #
+#     column = 3
+#     L = []
+#     # POSSIBLE AND WORKING
+#
+#     for x in range(1, 200):
+#         name = (df.iloc[x]['product_name'])
+#         # name = df.get_value(x, column, takeable=False)
+#         # print name
+#         # print type(name)
+#         # print 2*x-1
+#         # print x
+#         # if type(name) == float:
+#         # print name
+#
+#         # print x
+#
+#         # df.drop(df.columns[[2]], axis=1)
+#         print type(name)
+#         print name
+#         print x
+#         if name.find(s) != -1:
+#             print "here"
+#             #     L.append(x)
+#             # /       print type(name)
+#             # print name
+#             # /    print x
+#
+#             #  x=x+1
+#             # #
+#
+#
+#             # print "We're on time %d" % (x)
+#
+#             # for row in df.rows:
+#             # if (row[7] == "apple"):
+#             # print row[7]
+#             # print(df[df[7].str.contains("apple")])
+#             # # Using `loc[]`
+#             # print(df.loc[0]['A'])
+#             #
+#             # # Using `at[]`
+#             # print(df.at[0,'A'])
+#             #
+#             # # Using `iat[]`
+#             # # print(df.iat[0,0])
+#             #
+#             # # Using `get_value(index, column)`
