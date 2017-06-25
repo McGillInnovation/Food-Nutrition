@@ -7,12 +7,12 @@ import pandas as pd
 from StringIO import StringIO
 
 # Seasy
-import urllib2 #HTTP requests
-import re #regex
-from PIL import Image #gives raw binary data of a photo
+import urllib2  # HTTP requests
+import re  # regex
+from PIL import Image  # gives raw binary data of a photo
 import io
 
-#import global Constants
+# import global Constants
 import global_constants
 
 ###############################################
@@ -29,8 +29,8 @@ import global_constants
 # a free trial subscription key, you should not need to change this region.
 uri_base = 'westcentralus.api.cognitive.microsoft.com'
 
-def createAPIConnection(picURL, SUBSCRIPTION_KEY):
 
+def createAPIConnection(picURL, SUBSCRIPTION_KEY):
     headers = {
         # Request headers.
         'Content-Type': 'application/json',
@@ -65,12 +65,12 @@ def createAPIConnection(picURL, SUBSCRIPTION_KEY):
         isFruit(output_tag_array)
         whatFruit(output_tag_array)
 
-
         connection.close()
 
     except Exception as e:
         print('Error:')
         print(e)
+
 
 # ----------------------- [S] get tags ---------------------------------------------
 
@@ -81,6 +81,7 @@ def getTags(json_data):
     # for tag in tags:
 
     return tag_array
+
 
 # ----------------------- [S] check if 'fruit' is a tag ---------------------------------------------
 
@@ -95,6 +96,7 @@ def isFruit(tag_array):
     if fruitTag == False:
         print "Object is not a fruit."
 
+
 # ----------------------- [S] if fruit, what/which fruit(s)?  ---------------------------------------------
 
 def whatFruit(tag_array):
@@ -108,64 +110,21 @@ def whatFruit(tag_array):
     if fruitTag == False:
         print "Object is not a fruit."
 
+
 # ------------------------------------------------- [A] csv stuff  ---------------------------------------------
 
 ##############  next part of the code is opening the tsv to play with it
 
-def findByKeyword():
+def findByKeyword(wordlist):
     df = pd.read_csv('C:\Users\Admin\/afoodproject\/fix.csv', dtype=object)
-
-    # print(df.loc[10][7])
-    # print("in the column" + df[df['7'].str.contains("apple") == True])
-    s = "Organic"
-    # if "Acai" in df.loc[77][7]:
-    #     print "here!!"
-    # print(df.loc[77][7])
-    # #
-    column = 3
-    L = []
     # POSSIBLE AND WORKING
 
-    for x in range(1, 200):
-        name = (df.iloc[x]['product_name'])
-        # name = df.get_value(x, column, takeable=False)
-        # print name
-        # print type(name)
-        # print 2*x-1
-        # print x
-        # if type(name) == float:
-        # print name
-
-        # print x
-
-        # df.drop(df.columns[[2]], axis=1)
-        print type(name)
-        print name
-        print x
-        if name.find(s) != -1:
-            print "here"
-            #     L.append(x)
-            # /       print type(name)
-            # print name
-            # /    print x
-
-            #  x=x+1
-            # #
-
-
-            # print "We're on time %d" % (x)
-
-            # for row in df.rows:
-            # if (row[7] == "apple"):
-            # print row[7]
-            # print(df[df[7].str.contains("apple")])
-            # # Using `loc[]`
-            # print(df.loc[0]['A'])
-            #
-            # # Using `at[]`
-            # print(df.at[0,'A'])
-            #
-            # # Using `iat[]`
-            # # print(df.iat[0,0])
-            #
-            # # Using `get_value(index, column)`
+    for x in range(0, 200):
+        if type(df.iloc[x]['product_name']) != float:
+            name = (df.iloc[x]['product_name'])
+            for i in range(len(wordlist)):
+                if name.find(wordlist[i]) == -1:
+                    break
+                else:
+                    if i == len(wordlist) - 1:
+                        print "it is a " + name + " at index : " + str(x)
