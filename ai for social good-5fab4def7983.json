@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "essential-topic-171015",
+  "private_key_id": "5fab4def7983ff0918b56e628e9e19ca5f5b9d53",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDeEd9WNlksxR6Q\nr/M8bP1V5Ltu//AtgP3GY8Xvau5SycahXUZ/ceLGflXrE5pYUPca+YQdaVEhf4lt\nCQZl4RspPI7eajKhNhfI/ihn8TgHZiQjG1b/CRVvCb9yDa3nJsOE9eZDWfLsK+CJ\ncbagHrpWI7cBIkJrVoXPnxiIoedD8nZ1yfmJt2EcNLFrTmo1ueOOVIx0ov86eVlP\nVoMijmn73r5nYQznLrETQybGaUTiSXhPzdQXf4/J8IERYkLS3yTtdddb2mi/89RJ\nrG+E47jbcxsB+dx6DGhMjaxxus/RK0qzVn8ty4B/kaaGo+o0nKmfq7XWt54pieDe\nk416OIZTAgMBAAECggEAEsNX0iT4FpGhKiseViCvVwPjLQHFp/1EyUUXgvR5+9do\nnQG7OdFu48PmO90wJqjQosrU9YHh2lQNpyoituufgTXIrH+J6kJzyAZmy5bUsRYE\nP6MeZUtohYqWo8BcIoe38BKxc0dfqxdvUAL3oe0hZAh90e60cJ/4NmQEN/yAryYz\nvrLS1Hy5m2y6Isr5QSh7t3gu+BysjT+LcoXokNrZ9HdhCSc2sTJHxRBYcpJTt2RM\nncnF1LpTqAu2Xt2mLRswi3w0I6MXLv8DHiiS46zBsjY7i9SBBRkYFm2iLPRHaWA5\nQpwrpts5XSJolPMjNPfCdOVJMVc/Npe//kLL4S+AQQKBgQDvWwNqro/hlceLB49y\n88IvPcXO/RyrJ9HifYz3qiL6vUIQozwnl8aABop3q0AWoKJOyJXX3vuYM/GNtICw\nyZVPxhyj42avU3U0wXQKRc0JtLtRLmgxz2YJQ6TZMEvTM9tBzU0rozPSsTw28m+u\n7iMSXz4WUPZG9vSKG4DNTQSlKwKBgQDtgyPv2eFgNDYIBbC5bKq8Baq8d4qNEI3J\n8NqZpMRwcoPEfNAFh7P3gZb1HrsquZuifzfRYxpbNppctqGZbeMPd4KkWD+w8anc\nIkdDs5vUXoHkuvixb1BjIBGqg4YV70CAmZh6a8MA0koTdBn2+Iud8LydDwMWU5wf\nj5ipbnLfeQKBgQCDMe3Tgc8XpRN03zX/miCr6D4OUKpwHilq7cpgzf7SVP5rRC3q\nvcRt1Cf9o/5C6NVOPZ/0bSKWsJIMTA3l2Phge4SjSDe2jhZGTmseXlgeo9OwkbFG\n7BlPpqYq7dAB+gCKNs+/xXrYV5FbxNL2nUzX+yB69vGmwCIVuTGGVlrfdQKBgAME\n1LMawNuZLkqhz+I7eFwVclsc5dzvJe44Kn8jcf+/5N7de0NmuyndMs8Ayf48B7dk\nCJCXwuD/66xcAefSVr1+lmGCYaTdHXyXzvIUWVm0rc/7dGfE82+fG7pgG5cxyE8a\nJK8BqaPcCGcA5ceW1yd1xN/2LeLdwzE/gQA+UCV5AoGBAOk4F33z6QgzC/CvNem5\n//QL/9P/V7jPEK4jd+LHsEkr/S0bDcbCVaL8toeHUEsXXsPcrGIhkw1+doRF3Dcm\nj8UHR+pxpBdaLErn3QO9qYxKW64EbePj+RPLpNPi9AlH7Kl2BAGYvQJzvupxxp87\neP+QU3U1jy/nYaVHrgtGBD9d\n-----END PRIVATE KEY-----\n",
+  "client_email": "nutritionai@essential-topic-171015.iam.gserviceaccount.com",
+  "client_id": "111850474958617243526",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/nutritionai%40essential-topic-171015.iam.gserviceaccount.com"
+}

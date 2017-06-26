@@ -13,7 +13,8 @@ import urllib2  # HTTP requests
 import re  # regex
 from PIL import Image  # gives raw binary data of a photo
 import io
-fruits_array = []
+from google.cloud import vision
+fruits_array = {}
 
 # import global Constants
 import global_constants
@@ -33,23 +34,56 @@ import global_constants
 uri_base = 'westcentralus.api.cognitive.microsoft.com'
 
 
-def createAPIConnection(picURL, SUBSCRIPTION_KEY):
-    headers = {
-        # Request headers.
-        'Content-Type': 'application/json',
-        'Ocp-Apim-Subscription-Key': SUBSCRIPTION_KEY,
-    }
-
-    params = urllib.urlencode({
-        # Request parameters. All of them are optional.
-        'visualFeatures': 'Tags,Description',
-        'language': 'en',
-    })
-
-    # The URL of a JPEG image to analyzeself.
-    body = "{'url':'%s'}" % (picURL)
+def createAPIConnection():
 
     try:
+        googleVision()
+        # microsoftVision(
+        # key_list['example_pic_URL'],
+        # key_list['subscription_key'])
+
+    except Exception as e:
+        print('Error:')
+        print(e)
+
+def googleVision():
+        # -------------------- google ------------------------
+        vision_client = vision.Client()
+        file_name = 'test/banana.jpg'
+
+        with io.open(file_name, 'rb') as image_file:
+            content = image_file.read()
+            image = vision_client.image( content=content, )
+
+        labels = image.detect_labels()
+
+        for label in labels:
+
+            fruits_array[label.description] = label.score
+
+            # print(label.description, end=" ")
+            # print(label.score)
+
+        print (fruits_array)
+
+
+def microsoftVision(picURL, SUBSCRIPTION_KEY):
+        # -------------------- microsoft ----------------------
+        headers = {
+            # Request headers.
+            'Content-Type': 'application/json',
+            'Ocp-Apim-Subscription-Key': SUBSCRIPTION_KEY,
+        }
+
+        params = urllib.urlencode({
+            # Request parameters. All of them are optional.
+            'visualFeatures': 'Tags,Description',
+            'language': 'en',
+        })
+
+        # The URL of a JPEG image to analyzeself.
+        body = "{'url':'%s'}" % (picURL)
+
         # Execute the REST API call and get the response.
         connection = httplib.HTTPSConnection('westcentralus.api.cognitive.microsoft.com')
         connection.request("POST", "/vision/v1.0/analyze?%s" % params, body, headers)
@@ -69,17 +103,14 @@ def createAPIConnection(picURL, SUBSCRIPTION_KEY):
         if (is_Fruit == True):
             what_Fruit = whatFruit(output_tag_array)
 
-            if (what_Fruit == True):
+            print (what_Fruit)
+
+            if (what_Fruit is not None):
                 fruits_array = whatFruit(output_tag_array)
                 for fruit in fruits_array:
                     print (fruit)
 
         connection.close()
-
-    except Exception as e:
-        print('Error:')
-        print(e)
-
 
 # ----------------------- [S] get tags ---------------------------------------------
 
