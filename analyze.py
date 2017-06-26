@@ -10,11 +10,24 @@ from StringIO import StringIO
 
 # Seasy
 import urllib2  # HTTP requests
-import re  # regex
+import re  # reeeeeeeeeeeeeeee
 from PIL import Image  # gives raw binary data of a photo
 import io
 from google.cloud import vision
 fruits_array = {}
+label_list = []
+colours = ['brown', 'beige', 'black', 'blue', 'cyan', 'gold', 'gray', 'grey', 'green', 'pink', 'purple', 'red', 'silver', 'turquoise', 'teal', 'white', 'yellow']
+dont_want = [
+'fruit',
+'ingredient',
+'produce',
+'food',
+'product',
+'dessert',
+'finger',
+'hand',
+'photo',
+]
 
 # import global Constants
 import global_constants
@@ -49,7 +62,7 @@ def createAPIConnection():
 def googleVision():
         # -------------------- google ------------------------
         vision_client = vision.Client()
-        file_name = 'test/banana.jpg'
+        file_name = 'test/apple.jpg'
 
         with io.open(file_name, 'rb') as image_file:
             content = image_file.read()
@@ -58,13 +71,53 @@ def googleVision():
         labels = image.detect_labels()
 
         for label in labels:
-
             fruits_array[label.description] = label.score
 
-            # print(label.description, end=" ")
-            # print(label.score)
+        print (fruits_array)
+        print ("fuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuck")
+
+# ------------------------ it works up to here ------------------------
+
+        dontWant(dont_want, fruits_array)
+
+        # remove the colours:
+        for colour in colours:
+            if colour in fruits_array.keys():
+                print ("deleting", colour)
+                del fruits_array[colour]
 
         print (fruits_array)
+
+        # list of keys in the dictionary 'fruits_array'
+        label_list = list(fruits_array.keys())
+
+        print (label_list)
+
+        # gisFruit(fruits_array)
+
+
+
+
+# ----------------------- [S] remove unwanted words from dictionary ---------------------------------------------
+
+def dontWant(csv_list, input_dictionary): #words from csv, input dictionary
+
+    for part_of_word in csv_list:
+        regex = "\'%s\'", part_of_word
+
+        print ("THIS IS THE REGEX")
+        print (regex)
+        # edit more
+
+        s = re.search('(?<=abc)def', )
+
+    # # ghetto hardcoding
+    # for word in dont_want:
+    #     if word in fruits_array.keys():
+    #         print ("deleting", word)
+    #         del fruits_array[word]
+
+    return input_dictionary
 
 
 def microsoftVision(picURL, SUBSCRIPTION_KEY):
