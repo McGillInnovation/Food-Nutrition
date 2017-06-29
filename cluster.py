@@ -43,13 +43,18 @@ def clustering():
     # print arr[:,:].dtype
     # print(arr.min())
     columnx=1 #is our base in kcal
-    columny=8 # 3proteins 4 carbs 5 sugar 6fiber 7 fat 8satfat
+    columny=15# 3proteins 4 carbs 5 sugar 6fiber
+    # 7 fat 8satfat 9choleserol 10 calcium
+    # 11iron #12sodium 13 potassium 14magnesium
+    # 15 phosphorus
+
+
     x = arr[:,columnx]
     # print x
     y = arr[:,columny]
     # print y
 
-    kmeans = KMeans(n_clusters=12,random_state=2)
+    kmeans = KMeans(n_clusters=3, max_iter=2000)
     labels = kmeans.fit_predict(arr) # same size array of which cluster index is in
     ##text=List of strings to be written to file
     print type(labels)
